@@ -50,9 +50,9 @@ mkdir -p %{buildroot}%{_includedir}/
 cp nv_fm_agent.h %{buildroot}%{_includedir}/
 cp nv_fm_types.h %{buildroot}%{_includedir}/
 
-%post -p /sbin/ldconfig
+%post -n nvidia-fabricmanager-devel -p /sbin/ldconfig
 
-%postun -p /sbin/ldconfig
+%postun -n nvidia-fabricmanager-devel -p /sbin/ldconfig
 
 %files
 %{_bindir}/*
