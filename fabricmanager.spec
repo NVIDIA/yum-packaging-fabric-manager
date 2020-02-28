@@ -32,7 +32,7 @@ rm -rf %{buildroot}
 
 mkdir -p %{buildroot}%{_bindir}/
 cp -a nv-fabricmanager %{buildroot}%{_bindir}/
-#cp -a nvswitch-audit %{buildroot}%{_bindir}/
+cp -a nvswitch-audit %{buildroot}%{_bindir}/
 
 mkdir -p %{buildroot}/usr/lib/systemd/system
 cp -a nvidia-fabricmanager.service  %{buildroot}/usr/lib/systemd/system
