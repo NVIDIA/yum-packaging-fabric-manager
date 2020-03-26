@@ -38,8 +38,7 @@ mkdir -p %{buildroot}/usr/lib/systemd/system
 cp -a nvidia-fabricmanager.service  %{buildroot}/usr/lib/systemd/system
 
 mkdir -p %{buildroot}/usr/share/nvidia/nvswitch
-cp -a dgx2_hgx2_topology %{buildroot}/usr/share/nvidia/nvswitch
-cp -a dgxlr_hgxlr_topology %{buildroot}/usr/share/nvidia/nvswitch
+cp -a *_topology %{buildroot}/usr/share/nvidia/nvswitch
 cp -a fabricmanager.cfg %{buildroot}/usr/share/nvidia/nvswitch
 
 mkdir -p %{buildroot}%{_libdir}/
