@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 %global __os_install_post /usr/lib/rpm/brp-compress %{nil}
 
-Name:           nvidia-fabricmanager
+Name:           nvidia-fabricmanager-%{branch}
 Version:        %{?version}
 Release:        1
 Summary:        Fabric Manager for NVSwitch based systems
@@ -11,13 +11,16 @@ License:        NVIDIA Proprietary
 URL:            http://www.nvidia.com
 Source0:        fabricmanager-%{version}.tar.gz
 
+Obsoletes:      nvidia-fabricmanager
+
 %description
 Fabric Manager for NVIDIA NVSwitch based systems.
 
-%package -n nvidia-fabricmanager-devel
+%package -n nvidia-fabricmanager-devel-%{branch}
 Summary:        Fabric Manager API headers and associated library
+Obsoletes:      nvidia-fabricmanager-devel
 
-%description -n nvidia-fabricmanager-devel
+%description -n nvidia-fabricmanager-devel-%{branch}
 Fabric Manager API headers and associated library
 
 %prep
@@ -49,16 +52,16 @@ mkdir -p %{buildroot}%{_includedir}/
 cp nv_fm_agent.h %{buildroot}%{_includedir}/
 cp nv_fm_types.h %{buildroot}%{_includedir}/
 
-%post -n nvidia-fabricmanager-devel -p /sbin/ldconfig
+%post -n nvidia-fabricmanager-devel-%{branch} -p /sbin/ldconfig
 
-%postun -n nvidia-fabricmanager-devel -p /sbin/ldconfig
+%postun -n nvidia-fabricmanager-devel-%{branch} -p /sbin/ldconfig
 
 %files
 %{_bindir}/*
 /usr/lib/systemd/system/*
 /usr/share/nvidia/nvswitch/*
 
-%files -n nvidia-fabricmanager-devel
+%files -n nvidia-fabricmanager-devel-%{branch}
 %{_libdir}/*
 %{_includedir}/*
 
