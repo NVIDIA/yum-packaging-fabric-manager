@@ -18,10 +18,32 @@ Fabric Manager for NVIDIA NVSwitch based systems.
 
 %package -n nvidia-fabricmanager-devel-%{branch}
 Summary:        Fabric Manager API headers and associated library
+# Normally we would have a dev package depend on its runtime package. However
+# FM isn't a normal package. All the libs are in the dev package, and the
+# runtime package is actually a service package.
 Obsoletes:      nvidia-fabricmanager-devel
 
 %description -n nvidia-fabricmanager-devel-%{branch}
 Fabric Manager API headers and associated library
+
+%package -n cuda-drivers-fabricmanager-%{branch}
+Summary:        Meta-package for FM and Driver
+Requires:       nvidia-fabricmanager-%{branch} = %{version}
+Requires:       cuda-drivers-%{branch} = %{version}
+
+%description -n cuda-drivers-fabricmanager-%{branch}
+Convience meta-package for installing fabricmanager and the cuda-drivers
+meta-package simultaneously while keeping version equivalence. This meta-
+package is branch-specific.
+
+%package -n cuda-drivers-fabricmanager
+Summary:        Meta-package for FM and Driver
+Requires:       cuda-drivers-fabricmanager-%{branch} = %{version}
+
+%description -n cuda-drivers-fabricmanager
+Convience meta-package for installing fabricmanager and the cuda-drivers
+meta-package simultaneously while keeping version equivalence. This meta-
+package is across all driver branches.
 
 %prep
 %setup -q -n fabricmanager-%{version}
@@ -64,6 +86,10 @@ cp nv_fm_types.h %{buildroot}%{_includedir}/
 %files -n nvidia-fabricmanager-devel-%{branch}
 %{_libdir}/*
 %{_includedir}/*
+
+%files -n cuda-drivers-fabricmanager-%{branch}
+
+%files -n cuda-drivers-fabricmanager
 
 %changelog
 * Fri Jun 29 2018 Shibu Baby
