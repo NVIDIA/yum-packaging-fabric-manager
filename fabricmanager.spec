@@ -13,6 +13,10 @@ Source0:        fabricmanager-%{version}.tar.gz
 
 Obsoletes:      nvidia-fabricmanager
 
+Provides:       nvidia-fabricmanager-branch = %{version}
+Obsoletes:      nvidia-fabricmanager-branch < %{version}
+Conflicts:      nvidia-fabricmanager-branch
+
 %description
 Fabric Manager for NVIDIA NVSwitch based systems.
 
@@ -23,6 +27,10 @@ Summary:        Fabric Manager API headers and associated library
 # runtime package is actually a service package.
 Obsoletes:      nvidia-fabricmanager-devel
 
+Provides:       nvidia-fabricmanager-devel-branch = %{version}
+Obsoletes:      nvidia-fabricmanager-devel-branch < %{version}
+Conflicts:      nvidia-fabricmanager-devel-branch
+
 %description -n nvidia-fabricmanager-devel-%{branch}
 Fabric Manager API headers and associated library
 
@@ -30,6 +38,10 @@ Fabric Manager API headers and associated library
 Summary:        Meta-package for FM and Driver
 Requires:       nvidia-fabricmanager-%{branch} = %{version}
 Requires:       cuda-drivers-%{branch} = %{version}
+
+Provides:       cuda-drivers-fabricmanager-branch = %{version}
+Obsoletes:      cuda-drivers-fabricmanager-branch < %{version}
+Conflicts:      cuda-drivers-fabricmanager-branch
 
 %description -n cuda-drivers-fabricmanager-%{branch}
 Convience meta-package for installing fabricmanager and the cuda-drivers
