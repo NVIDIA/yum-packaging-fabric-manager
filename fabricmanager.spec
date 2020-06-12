@@ -86,6 +86,10 @@ mkdir -p %{buildroot}%{_includedir}/
 cp nv_fm_agent.h %{buildroot}%{_includedir}/
 cp nv_fm_types.h %{buildroot}%{_includedir}/
 
+mkdir -p %{buildroot}/usr/share/doc/nvidia-fabricmanager/
+cp -a LICENSE %{buildroot}/usr/share/doc/nvidia-fabricmanager/
+cp -a third-party-notices.txt %{buildroot}/usr/share/doc/nvidia-fabricmanager/
+
 %post -n nvidia-fabricmanager-devel-%{branch} -p /sbin/ldconfig
 
 %postun -n nvidia-fabricmanager-devel-%{branch} -p /sbin/ldconfig
@@ -94,6 +98,7 @@ cp nv_fm_types.h %{buildroot}%{_includedir}/
 %{_bindir}/*
 /usr/lib/systemd/system/*
 /usr/share/nvidia/nvswitch/*
+/usr/share/doc/nvidia-fabricmanager/*
 
 %files -n nvidia-fabricmanager-devel-%{branch}
 %{_libdir}/*
