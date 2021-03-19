@@ -30,7 +30,7 @@ Summary:        Fabric Manager for NVSwitch based systems
 
 License:        NVIDIA Proprietary
 URL:            http://www.nvidia.com
-Source0:        fabricmanager-%{version}.tar.gz
+Source0:        fabricmanager-linux-%{_arch}-%{version}.tar.gz
 
 Obsoletes:      nvidia-fabricmanager
 
@@ -79,7 +79,7 @@ meta-package simultaneously while keeping version equivalence. This meta-
 package is across all driver branches.
 
 %prep
-%setup -q -n fabricmanager-%{version}
+%setup -q -n fabricmanager
 
 %build
 

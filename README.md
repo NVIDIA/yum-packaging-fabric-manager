@@ -19,9 +19,12 @@ Fabric Manager is intended for hardware containing NvSwitch such as DGX systems.
 - [Prerequisites](#Prerequisites)
   * [Clone this git repository](#Clone-this-git-repository)
   * [Install build dependencies](#Install-build-dependencies)
+- [Building Manually](#Building-Manually)
 - [Related](#Related)
   * [NSCQ library](#NSCQ-library)
   * [NVIDIA driver](#NVIDIA-driver)
+- [See also](#See-also)
+  * [Debian](#Debian)
 - [Contributing](#Contributing)
 
 
@@ -75,9 +78,9 @@ git clone https://github.com/NVIDIA/yum-packaging-fabric-manager
 
 ### Download a NVIDIA fabricmanager tarball:
 
-* TBD
+* https://developer.download.nvidia.com/compute/cuda/redist/fabricmanager/
 
-  *ex:* fabricmanager-460.32.03.tar.gz
+  *ex:* fabricmanager-linux-x86_64-460.32.03.tar.gz
 
 ### Install build dependencies
 
@@ -85,6 +88,42 @@ git clone https://github.com/NVIDIA/yum-packaging-fabric-manager
 # Packaging
 yum install rpm-build
 ```
+
+
+## Building Manually
+
+### Parse JSON to retrieve download URL
+```shell
+baseURL="https://developer.download.nvidia.com/compute/cuda/redist"
+curl -s $baseURL/redistrib_460.32.03.json | \
+jq -r '."fabricmanager" | ."460.32.03" | ."linux-x86_64"' | \
+sed "s|^|$baseURL/|"
+```
+
+### Prepare build directory
+```shell
+cd yum-packaging-fabric-manager
+mkdir SPECS SOURCES
+cp *.spec SPECS/
+cp ../fabricmanager*.tar.gz SOURCES/
+```
+
+### Generate .rpm packages
+```shell
+rpmbuild \
+    --define "%_topdir $(pwd)" \
+    --define "%version 460.32.03" \
+    --define "%branch 460" \
+    --define "%_arch x86_64" \
+    --define "%_build_arch x86_64" \
+    --target=x86_64 \
+    -v -ba SPECS/*.spec
+
+cd RPMS/x86_64
+ls *.rpm
+```
+> _note:_ branch is the first `.` delimited field in the driver version, ex: `460` in `460.32.03`
+
 
 ## Related
 
@@ -97,6 +136,12 @@ yum install rpm-build
 
 - nvidia-driver
   * [https://github.com/NVIDIA/yum-packaging-nvidia-driver](https://github.com/NVIDIA/yum-packaging-nvidia-driver)
+
+## See also
+
+### Debian
+
+  * [https://github.com/NVIDIA/apt-packaging-fabric-manager](https://github.com/NVIDIA/apt-packaging-fabric-manager)
 
 
 ## Contributing
